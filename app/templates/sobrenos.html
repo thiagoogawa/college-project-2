@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenFlow - Sobre nós</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sobrenos.css') }}" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <div class="logo-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#2e7d32"
+            stroke-width="2"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div class="logo-text">GreenFlow</div>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="{{ url_for('users.exibe_form_dashboard') }}" >Home</a></li>
+          <li><a href="{{ url_for('users.exibe_sobre_nos') }}" class="active">Sobre nós</a></li>
+          <li><a href="{{ url_for('users.exibe_relatorios_usuario') }}">Relatório</a></li>
+          <li><a href="{{ url_for('users.profile') }}">Meu Perfil</a></li>
+        </ul>
+        <a href="{{ url_for('main.index') }}" class="logout-icon" title="Sair">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#666"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="about-container">
+        <div class="about-header">
+          <h1>Conheça a GreenFlow</h1>
+          <p>
+            Transformando o monitoramento ambiental em uma jornada simples e
+            acessível para empresas e indivíduos comprometidos com a
+            sustentabilidade.
+          </p>
+        </div>
+
+        <div class="about-content">
+          <div class="about-image">
+            <img src="{{url_for('static', filename='images/sobrenos.jpg')}}" alt="Descrição da imagem" />
+          </div>
+
+          <div class="about-card">
+            <h2>Sobre a GreenFlow</h2>
+            <p>
+              Fundada em 2022, a GreenFlow nasceu com a missão de transformar a
+              maneira como as pessoas e empresas monitoram e compreendem seu
+              impacto ambiental. Acreditamos que a conscientização e a medição
+              precisa são os primeiros passos para reduzir nossa pegada
+              ecológica.
+            </p>
+            <p>
+              Nossa plataforma inovadora permite o acompanhamento do consumo de
+              água, energia, geração de resíduos e padrões de transporte,
+              oferecendo insights valiosos e sugestões práticas para um estilo
+              de vida mais sustentável. Tornamos o monitoramento ambiental
+              acessível, simples e eficaz.
+            </p>
+            <p>
+              Ao longo dos anos, temos feito parcerias com empresas, escolas,
+              universidades e comunidades para promover práticas sustentáveis e
+              fornecer as ferramentas necessárias para que todos possam
+              contribuir para um futuro mais verde.
+            </p>
+            <p>
+              Nossa equipe é formada por especialistas em tecnologia, ciência
+              ambiental e sustentabilidade, todos unidos pelo propósito de criar
+              soluções que faz
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

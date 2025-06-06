@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenFlow</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landingpage.css') }}" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#2e7d32"
+            stroke-width="2"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div class="logo-text">GreenFlow</div>
+      </div>
+      <div class="nav-links">
+        <a href="{{url_for('users.exibe_form_login')}}" class="nav-button login">Login</a>
+        <a href="{{url_for('users.exibe_form_cadastro')}}" class="nav-button signup">Cadastre-se</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Preserve a <span class="nature-text">NATUREZA</span>
+        </h1>
+        <p class="hero-description">
+          Ajude o meio ambiente e melhore como pessoa utilizando o nosso
+          aplicativo
+        </p>
+        <a href="{{url_for('main.about')}}"
+          <button class="cta-button">Saiba mais</button>
+        </a>
+      </div>
+
+      <svg
+        class="plant-illustration"
+        viewBox="0 0 800 600"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M400,500 C550,400 650,300 700,100 C750,300 750,400 780,500 C600,450 500,450 400,500 Z"
+          fill="#4caf50"
+        />
+        <path
+          d="M350,520 C250,450 200,350 150,200 C100,350 80,450 50,520 C150,480 250,480 350,520 Z"
+          fill="#2e7d32"
+        />
+        <path
+          d="M500,480 C580,420 630,350 650,250 C680,350 690,420 700,480 C600,450 550,450 500,480 Z"
+          fill="#81c784"
+        />
+        <path
+          d="M300,500 C200,450 150,400 100,300 C80,400 70,450 60,500 C150,480 220,480 300,500 Z"
+          fill="#388e3c"
+        />
+        <path
+          d="M450,490 C500,450 530,400 550,350 C570,400 580,450 590,490 C530,470 490,470 450,490 Z"
+          fill="#66bb6a"
+        />
+        <path
+          d="M400,510 C450,480 480,450 500,400 C520,450 530,480 540,510 C480,500 440,500 400,510 Z"
+          fill="#43a047"
+        />
+        <!-- Decorative leaf veins -->
+        <path
+          d="M200,350 L180,320"
+          stroke="#e8f5e9"
+          stroke-width="2"
+          opacity="0.3"
+        />
+        <path
+          d="M300,420 L320,390"
+          stroke="#e8f5e9"
+          stroke-width="2"
+          opacity="0.3"
+        />
+        <path
+          d="M500,380 L520,350"
+          stroke="#e8f5e9"
+          stroke-width="2"
+          opacity="0.3"
+        />
+        <path
+          d="M600,420 L620,400"
+          stroke="#e8f5e9"
+          stroke-width="2"
+          opacity="0.3"
+        />
+        <path
+          d="M150,400 L130,380"
+          stroke="#e8f5e9"
+          stroke-width="2"
+          opacity="0.3"
+        />
+      </svg>
+    </div>
+  </body>
+</html>

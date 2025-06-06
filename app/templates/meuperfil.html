@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenFlow - Meu Perfil</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/meuperfil.css')}}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2e7d32"
+          stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+      </div>
+      <div class="logo-text">GreenFlow</div>
+    </div>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('users.exibe_form_dashboard') }}">Home</a></li>
+        <li><a href="{{ url_for('users.exibe_sobre_nos') }}">Sobre nós</a></li>
+        <li><a href="{{ url_for('users.exibe_relatorios_usuario') }}">Relatório</a></li>
+        <li><a href="{{ url_for('users.profile') }}" class="active">Meu Perfil</a></li>
+      </ul>
+      <a href="{{ url_for('main.index') }}" class="logout-icon" title="Sair">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Seção de Perfil Simplificada -->
+    <div class="profile-container">
+      <!-- Informações Básicas do Perfil -->
+      <div class="profile-info">
+        <h2 class="user-name">Bem vindo(a), {{ rep.get('Nome', '') }}</h2>
+        <div class="user-info">Entrou em: {{ rep.get('DataCadastro', '') }}</div>
+      </div>
+    </div>
+
+    <!-- <div class="evolution-card">
+        <div class="evolution-header">
+          <h3 class="section-title">Minha Evolução Sustentável</h3>
+        </div>
+
+        <div class="evolution-content">
+          <div class="evolution-graph">
+            Aqui vai mostrar o histórico completo do usuário.
+          </div>
+
+          <div class="xp-progress">
+            <div class="xp-label">
+              <span class="xp-level">Nível 3 - Protetor Ambiental</span>
+              <span>65%</span>
+            </div>
+            <div class="xp-bar">
+              <div class="xp-fill">
+                <span class="xp-value">650/1000 XP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+    <!-- Dados ambientais-->
+    <div class="data-card">
+      <div class="data-header with-score">
+        <h3 class="section-title">Dados Ambientais (Medias)</h3>
+      </div>
+
+      <div class="data-content">
+        <div class="score-circle">
+          <span class="score-value">{{ (rep['Indice'] * 100 if rep['Indice'] != None else 0)|round(0) }}</span>
+          <span class="score-label">{{ rep['Sustentabilidade'] if rep['Sustentabilidade'] != None else "" }}</span>
+        </div>
+
+        <div class="data-flex-container">
+          <div class="data-items-container">
+            <div class="data-item">
+              <span class="data-label"><i class="fas fa-tint" style="color: #227dbf;"></i> Água:</span>
+              <span class="data-value">{{ rep.get('Agua', 0)|float|round(0) }} L</span>
+            </div>
+            <div class="data-item">
+              <span class="data-label"><i class="fas fa-bolt" style="color: #fbc02d;"></i> Energia:</span>
+              <span class="data-value">{{ rep.get('Energia', 0)|float|round(0) }} kWh</span>
+            </div>
+            <div class="data-item">
+              <span class="data-label"><i class="fas fa-trash-alt" style="color: #616161;"></i> Resíduos Não
+                Recicláveis:</span>
+              <span class="data-value">{{ rep.get('ResiduosNR', 0)|float|round(2) }} kg</span>
+            </div>
+            <div class="data-item">
+              <span class="data-label"><i class="fas fa-recycle" style="color: #388e3c;"></i> Resíduos
+                Recicláveis:</span>
+              <span class="data-value">
+                {{ rep.get('ResiduosR', 0)|float|round(2) }} kg ({{ ((rep.get('ResiduosR',
+                0)|float)/(rep.get('ResiduosT', 1)|float)*100)|float|round(2) }}% do total gerado)
+              </span>
+            </div>
+            <div class="data-item">
+              <span class="data-label"><i class="fas fa-bus" style="color: #ff5722;"></i></i> Ônibus:</span>
+              <span class="data-value">{{ rep.get('Transporte', {}).get('onibus', (0.00, 0.00))[0]|round(2) }} km
+                ({{rep.get('Transporte', {}).get('onibus', (0.00, 0.00))[1]|round(2)}} kg CO2)</span>
+            </div>
+            <div class="data-item">
+              <span class="data-label"><i class="fas fa-car" style="color: #455a64;"></i></i> Carro:</span>
+              <span class="data-value">{{ rep.get('Transporte', {}).get('carro', (0.00, 0.00))[0]|round(2) }} km
+                ({{rep.get('Transporte', {}).get('carro', (0.00, 0.00))[1]|round(2)}} kg CO2)</span>
+            </div>
+            <div class="data-item">
+              <span class="data-label"><i class="fas fa-motorcycle" style="color: #d84315;"></i></i></i> Moto:</span>
+              <span class="data-value">{{ rep.get('Transporte', {}).get('moto', (0.00, 0.00))[0]|round(2) }} km
+                ({{rep.get('Transporte', {}).get('moto', (0.00, 0.00))[1]|round(2)}} kg CO2)</span>
+            </div>
+            <div class="data-item">
+              <span class="data-label"><i class="fas fa-subway" style="color: #0097a7;"></i></i> Metro:</span>
+              <span class="data-value">{{ rep.get('Transporte', {}).get('metro', (0.00, 0.00))[0]|round(2) }} km
+                ({{rep.get('Transporte', {}).get('metro', (0.00, 0.00))[1]|round(2)}} kg CO2)</span>
+            </div>
+          </div>
+
+          <div class="graph-container">
+            <div class="graph-radar" id="radar-chart">
+              <p>Gráfico de Radar da Pontuação (maior é melhor)</p>
+              {{ svg|safe }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="suggestion-content">
+      {% for noti in notificacoes %}
+      <div class="suggestion-item">
+        <div class="suggestion-title">
+          {{ noti['Titulo'] }}
+        </div>
+        <p class="suggestion-description">
+          {{ noti['Conteudo'] }}
+        </p>
+      </div>
+      {% else %}
+      <p>Você não tem notificações no momento.</p>
+      {% endfor %}
+
+    </div>
+    <!-- Card de Padrões e Tendências -->
+    <!-- <div class="patterns-card">
+        <div class="patterns-header">
+          <h3 class="section-title">Padrões de Comportamento e Tendências</h3>
+        </div>
+
+        <div class="pattern-content">
+          <div class="pattern-item">
+            <div class="pattern-title">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#2e7d32"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              Picos de consumo
+            </div>
+            <p class="pattern-description">
+              Seu consumo de energia tende a aumentar entre 18h e 22h nos dias
+              úteis, sendo 35% maior que nos outros períodos.
+            </p>
+            <div class="tip-section">
+              <div class="tip-title">Dica Eco</div>
+              <p class="tip-text">
+                Evite usar múltiplos aparelhos eletrônicos durante o horário de
+                pico. Considere atividades que não exijam energia elétrica
+                nesses horários.
+              </p>
+            </div>
+          </div>
+
+          <div class="pattern-item">
+            <div class="pattern-title">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#2e7d32"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+              </svg>
+              Tendência semanal
+            </div>
+            <p class="pattern-description">
+              Seu consumo de energia está em tendência de queda (8% menor que a
+              semana passada). Continue com os bons hábitos!
+            </p>
+            <div class="tip-section">
+              <div class="tip-title">Dica Eco</div>
+              <p class="tip-text">
+                Você está no caminho certo! Experimente desligar o roteador
+                Wi-Fi quando não estiver em uso para economizar ainda mais
+                energia.
+              </p>
+            </div>
+          </div>
+
+          <div class="pattern-item">
+            <div class="pattern-title">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#2e7d32"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                <line x1="15" y1="9" x2="15.01" y2="9"></line>
+              </svg>
+              Comparativo com sua comunidade
+            </div>
+            <p class="pattern-description">
+              Seu consumo energético está 12% abaixo da média da sua região.
+              Você está entre os 25% mais eficientes!
+            </p>
+            <div class="tip-section">
+              <div class="tip-title">Desafio</div>
+              <p class="tip-text">
+                Compartilhe suas dicas de economia com amigos e convide-os para
+                o GreenFlow para aumentar o impacto positivo na sua comunidade.
+              </p>
+            </div>
+          </div> -->
+
+    <!-- <div class="pattern-item">
+            <div class="pattern-title">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#2e7d32"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+                ></path>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+              </svg>
+              Dispositivos de maior consumo
+            </div>
+            <p class="pattern-description">
+              Com base nos seus padrões, identificamos que aparelhos de
+              climatização representam 40% do seu consumo total.
+            </p>
+            <div class="tip-section">
+              <div class="tip-title">Dica Eco</div>
+              <p class="tip-text">
+                Configure seu ar-condicionado para 24°C em vez de 22°C. Essa
+                pequena mudança pode reduzir o consumo em até 10%.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main> -->
+
+    <!-- Notificação -->
+    <!-- <div class="notification" id="notification">
+      <svg
+        class="notification-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      Perfil atualizado com sucesso!
+    </div> -->
+
+    <script src="{{url_for('static', filename='js/meuperfil.js')}}"></script>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+#####
+#
+#    Instruções: troque o nome do arquivo para .env, coloque, nas variáveis abaixo, as credenciais do banco de dados (elas não ficarão expostas no github)
+#
+####
+
+HOST_ENV = 
+USER_ENV = 
+PORT_ENV = 
+PASSWORD_ENV = 
+DATABASE_ENV = MonitoramentoSustentabilidade
+ENCRYPTION_MATRIX = "[[2, 3],[1, 2]]"

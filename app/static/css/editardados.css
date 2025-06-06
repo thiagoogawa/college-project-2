@@ -1,0 +1,237 @@
+.edit-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.edit-title {
+  color: #2e7d32;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.edit-card {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.edit-section {
+  padding: 20px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.edit-section:last-child {
+  border-bottom: none;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #2e7d32;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.section-title svg {
+  color: #2e7d32;
+}
+
+.edit-field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 15px;
+}
+
+.edit-field label {
+  width: 120px;
+  font-weight: 500;
+  color: #555;
+}
+
+/* Estilos para o filtro de data */
+.date-filter-container {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.date-filter {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.date-filter label {
+  font-weight: 500;
+  color: #555;
+  min-width: 120px;
+}
+
+.date-input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  flex: 1;
+  max-width: 200px;
+}
+
+.load-date-button {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.load-date-button:hover {
+  background-color: #246428;
+}
+
+.load-date-button svg {
+  transform: rotate(180deg);
+}
+
+.transport-edit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.transport-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.transport-select {
+  max-width: 20%;
+}
+
+.remove-transport-btn {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.remove-transport-btn:hover {
+  background-color: #f5c6cb;
+}
+
+.add-transport-button {
+  background-color: #e8f0e9;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+  border-radius: 20px;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  margin-top: 10px;
+}
+
+.add-transport-button:hover {
+  background-color: #d8e6d9;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.cancel-button {
+  background-color: #f0f0f0;
+  color: #666;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cancel-button:hover {
+  background-color: #e0e0e0;
+}
+
+.update-button {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  min-width: 150px;
+}
+
+.update-button:hover {
+  background-color: #246428;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .date-filter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .date-input {
+    width: 100%;
+    max-width: none;
+  }
+  
+  .edit-field {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .edit-field label {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  
+  .transport-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .remove-transport-btn {
+    align-self: flex-end;
+    margin-top: -36px;
+  }
+}

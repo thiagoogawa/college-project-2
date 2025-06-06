@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenFlow - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <div class="logo-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#2e7d32"
+            stroke-width="2"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div class="logo-text">GreenFlow</div>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="{{ url_for('users.exibe_form_dashboard') }}" class="active">Home</a></li>
+          <li><a href="{{ url_for('users.exibe_sobre_nos') }}">Sobre nós</a></li>
+          <li><a href="{{ url_for('users.exibe_relatorios_usuario') }}">Relatório</a></li>
+          <li><a href="{{ url_for('users.profile') }}">Meu Perfil</a></li>
+        </ul>
+
+        <a href="{{ url_for('main.index') }}" class="logout-icon" title="Sair">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#666"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- <section class="weekly-progress">
+        <div class="progress-header">
+          <h2 class="progress-title">Progresso Semanal</h2>
+          <div class="level-badge">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 15l-2-6.5 2 2 2-2-2 6.5z" />
+              <path d="M20 8.5v7L12 21l-8-5.5v-7L12 3l8 5.5z" />
+            </svg>
+            Nível 3: Aventureiro
+          </div>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: 65%"></div>
+        </div>
+
+        <div class="progress-info">
+          <span>650 XP</span>
+          <span>1000 XP</span>
+        </div>
+
+        <div class="daily-summary">
+          <div class="day-progress" data-day="Segunda" data-score="120">
+            <div class="day-label">Seg</div>
+            <div class="day-score">120</div>
+            <div class="day-checkmark">✓</div>
+          </div>
+          <div class="day-progress active" data-day="Terça" data-score="85">
+            <div class="day-label">Ter</div>
+            <div class="day-score">85</div>
+            <div class="day-checkmark">✓</div>
+          </div>
+          <div class="day-progress" data-day="Quarta" data-score="150">
+            <div class="day-label">Qua</div>
+            <div class="day-score">150</div>
+          </div>
+          <div class="day-progress" data-day="Quinta" data-score="95">
+            <div class="day-label">Qui</div>
+            <div class="day-score">95</div>
+          </div>
+          <div class="day-progress" data-day="Sexta" data-score="200">
+            <div class="day-label">Sex</div>
+            <div class="day-score">200</div>
+          </div>
+          <div class="day-progress" data-day="Sábado" data-score="0">
+            <div class="day-label">Sáb</div>
+            <div class="day-score">0</div>
+          </div>
+          <div class="day-progress" data-day="Domingo" data-score="0">
+            <div class="day-label">Dom</div>
+            <div class="day-score">0</div>
+          </div>
+        </div>
+
+        <div class="day-detail" id="day-detail">
+          <h3 id="day-detail-title">Detalhes do Dia</h3>
+          <p>Pontuação: <strong id="day-detail-score">0</strong> pontos</p>
+          <p>Consumo de energia: <span id="day-detail-energy">0</span> kWh</p>
+          <p>Consumo de água: <span id="day-detail-water">0</span> litros</p>
+          <p>
+            Lixo não reciclável: <span id="day-detail-waste">0</span> litros
+          </p>
+          <p>Transporte: <span id="day-detail-transport">-</span></p>
+        </div>
+      </section> -->
+
+      <!-- Cards de entrada de dados -->
+      <div class="cards-container">
+        <div class="card">
+          <div class="card-image">
+            <img src="{{url_for('static', filename='images/energia.jpg')}}" alt="lampada" />
+          </div>
+          <h3>Consumo de Energia</h3>
+          <p>Insira aqui os números que aparecem no seu relógio de energia.</p>
+          <input
+            type="number"
+            id="energy-input"
+            class="input-field"
+            min="0"
+            placeholder="Insira os dados aqui"
+            value="0"
+          />
+        </div>
+        <div class="card">
+          <div class="card-image">
+            <img src="{{url_for('static', filename='images/agua.jpg')}}" alt="Água" />
+          </div>
+          <h3>Consumo de Água</h3>
+          <p>Insira aqui os números que aparecem no seu hidrômetro.</p>
+          <input
+            type="number"
+            id="water-input"
+            class="input-field"
+            placeholder="Insira os dados aqui"
+            min="0"
+            value="0"
+          />
+        </div>
+        <!-- Card de Lixo Modificado com dois inputs -->
+        <div class="card">
+          <div class="card-image">
+            <img src="{{url_for('static', filename='images/lixo.jpg')}}" alt="Lixos" />
+          </div>
+          <h3>Consumo de lixo</h3>
+          <p>
+            Insira aqui a quantidade (kg) de cada tipo de lixo gerado
+          </p>
+          <div class="waste-inputs">
+            <div class="waste-input-group">
+              <label class="input-label">Não reciclável</label>
+              <input type="number" step="0.1" min="0" id="waste-input"class="input-field" placeholder="kg" value="0"/>
+            </div>
+            <div class="waste-input-group">
+              <label class="input-label">Reciclável</label>
+              <input type="number" step="0.1" min="0" id="recyclable-waste-input" class="input-field" placeholder="kg" value="0"/>
+            </div>
+          </div>
+        </div>
+        <!-- Card de Transporte Modificado com inputs lado a lado e botão + -->
+        <div class="card">
+          <div class="card-image">
+            <img src="{{url_for('static', filename='images/transporte.jpg')}}" alt="Ciclista" />
+          </div>
+          <h3>Transporte Utilizado</h3>
+          <p>Insira o tipo de transporte e a distância percorrida</p>
+          <div id="transport-inputs-container">
+            <div class="transport-input-row">
+              {% set transport_options = ['bicicleta', 'onibus', 'carro', 'moto', 'metro'] %}
+              <select id="transport-input" class="input-field half-width transport-select">
+                {% for option in transport_options %}
+                  <option value="{{ option }}"> {{ option.capitalize() }} </option>
+                {% endfor %}
+              </select>
+              <input
+                type="number"
+                id="transport-distance"
+                class="input-field half-width transport-input"
+                placeholder="Distância (km)"
+                min="0"
+                step="0.1"
+                value="0"
+              />
+            </div>
+          </div>
+          <div class="add-transport-button-container">
+            <button id="add-transport-button" class="add-button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Adicionar transporte
+            </button>
+          </div>
+        </div>
+        
+    </main>
+    <div class="buttons-container">
+      <a href="{{url_for('users.exibe_form_editarConsumo')}}" class="edit-button">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+        </svg>
+        Editar Dados
+      </a>
+      <button class="update-button">Cadastrar</button>
+    </div>
+
+    <!-- Notificação -->
+    <div class="notification" id="notification">
+      <svg
+        class="notification-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      Atualizado com sucesso!
+    </div>
+
+    <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenFlow - Relatórios Diários</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/relatorios.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/relatoriosdiarios.css') }}" />
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2e7d32"
+          stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span class="logo-text">GreenFlow</span>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="{{ url_for('users.exibe_form_dashboard') }}">Home</a></li>
+          <li><a href="{{ url_for('users.exibe_sobre_nos') }}">Sobre nós</a></li>
+          <li><a href="{{ url_for('users.exibe_relatorios_usuario') }}" class="active">Relatório</a></li>
+          <li><a href="{{ url_for('users.profile') }}">Meu Perfil</a></li>
+        </ul>
+        <a href="{{ url_for('main.index') }}" class="logout-icon" title="Sair">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Usa o parâmetro _id da URL -->
+      <h1 class="page-title">Relatório Semanal</h1>
+
+      <!-- Card Semanal -->
+      <div class="weekly-card">
+        <div class="weekly-header">
+          <h3>Semana</h3>
+          <div class="circle-index">
+            <!-- Placeholder para índice (usando ISS como fallback) -->
+            <span class="index-label">Índice Sustentabilidade</span>
+            <span class="index-value">{{ (rep["general"]["ISS"]*100)|round(0) | default('N/A') }}</span>
+          </div>
+        </div>
+        
+        <div class="weekly-content">
+          <ul class="metrics-list">
+            <li><span>Água Média</span><span>{{ rep["general"]["Agua"]|float|round(2) | default('N/A') }} L</span></li>
+            <li><span>Luz Média</span><span>{{ rep["general"]["Energia"]|float|round(2) | default('N/A') }} kWh</span></li>
+            <li><span>Resíduos NR Médio</span><span>{{ rep["general"]["ResiduosNR"]|float|round(2) | default('N/A') }} kg</span></li>
+            <li><span>Resíduos R Médio</span><span>{{ rep["general"]["ResiduosR"]|float|round(2) | default('N/A') }} kg ({{ ((rep['general'].get('ResiduosR', 0)|float)/(rep['general'].get('ResiduosT', 1)|float)*100)|float|round(2) }}%)</span></li>
+            <li><span>Transporte Total</span><span>{{ rep["general"]["DistanciaTotal"]|round(2) | default('N/A') }} km ({{ rep["general"]["total_co2"]|float|round(2) | default('N/A') }} kg CO2)</span></li>
+          </ul>
+      
+          <div class="graphs-container">
+            {% for graph in graphs %}
+              <div class="graph-item">
+                {{ graph['Construcao']|safe }}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid de Cards Diários -->
+      <div class="reports-grid">
+        {% set dias_da_semana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'] %}
+        {% for key, dia in rep.items() if key.startswith('day_') %}
+            {% set index = dia['weekday_index'] %}
+            
+            <div class="day-card">
+              <h3>{{ dias_da_semana[index] if index < dias_da_semana | length else 'Dia ' + (index + 1) | string }}</h3>
+                  <div class="circle-index">
+                    <!-- Placeholder para índice diário -->
+                    <div class="div-indice-ISP">
+                      <span class="index-label">Índice Sustentabilidade</span>
+                      <span class="index-value">{{ (dia["ISP"]*100)|round(0) | default('N/A') }}</span>
+                    </div>
+                  </div>
+                  <ul class="metrics-list">
+                    <li><span>Luz:</span><span>{{ dia["Energia"] | default('N/A') | round(0) }} kWh</span></li>
+                    <li><span>Água:</span> <span>{{ dia["Agua"] | default('N/A') | round(0) }} L</span></li>
+                    <li><span>Resíduos Não Recicláveis:</span> <span>{{ dia["ResiduosNR"] | default('N/A') | round(2) }} kg</span></li>
+                    <li><span>Resíduos Recicláveis:</span> <span>{{ dia["ResiduosR"] | default('N/A') | round(2) }} kg ({{ ((dia.get('ResiduosR', 0)|float)/((dia.get('ResiduosT', 1)|float))*100)|float|round(2) }}%)</span></li>
+                    <li><span>Transporte:</span> <span>{{ dia["transporte_total"] | default('N/A') | round(2) }} km</span>
+                    </li>
+                  </ul>
+            </div>
+        {% else %}
+            <p>Nenhum dado diário disponível para esta semana.</p>
+        {% endfor %}
+    </div>
+    </main>
+  </body>
+
+</html>

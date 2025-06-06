@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenFlow - Editar Dados</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/editardados.css') }}" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <div class="logo-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#2e7d32"
+            stroke-width="2"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div class="logo-text">GreenFlow</div>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="{{ url_for('users.exibe_form_dashboard') }}" class="active">Home</a></li>
+          <li><a href="{{ url_for('users.exibe_sobre_nos') }}">Sobre nós</a></li>
+          <li><a href="{{ url_for('users.exibe_relatorios_usuario') }}">Relatório</a></li>
+          <li><a href="{{ url_for('users.profile') }}">Meu Perfil</a></li>
+        </ul>
+
+        <a href="{{ url_for('main.index') }}" class="logout-icon" title="Sair">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#666"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="edit-container">
+        <h2 class="edit-title">Editar Dados de Consumo</h2>
+        
+        <!-- Filtro por Data -->
+        <div class="date-filter-container">
+          <div class="date-filter">
+            <label for="date-selector">Selecione a data:</label>
+            <input type="date" id="date-selector" class="date-input" placeholder="YYYY-MM-DD" value="{{ rep.get('data_insercao', '') or date | default('') }}">
+            <button id="load-date-data" class="load-date-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 10 4 15 9 20"></polyline>
+                <path d="M20 4v7a4 4 0 0 1-4 4H4"></path>
+              </svg>
+              Carregar Dados
+            </button>
+            <button id="remove-date-data" class="load-date-button" style="background-color: rgb(255, 75, 75) !important;">
+              <svg xmlns="http://www.w3.org/2000/svg" style="transform: scaleY(1);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6l-2 14H7L5 6"></path>
+                <path d="M10 11v6"></path>
+                <path d="M14 11v6"></path>
+                <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+              </svg>              
+              Apagar Dados
+            </button>
+          </div>
+        </div>
+        
+        <div class="edit-card">
+          <div class="edit-section">
+            <h3 class="section-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 18H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.19M15 6h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3.19"></path>
+                <line x1="23" y1="13" x2="23" y2="11"></line>
+                <polyline points="11 6 7 12 13 12 9 18"></polyline>
+              </svg>
+              Consumo de Energia
+            </h3>
+            <div class="edit-field">
+              <label for="energy-edit">Consumo atual (kWh):</label>
+              <input type="number" id="energy-edit" class="input-field" placeholder="kWh" value="{{ rep.get('Energia', '0') }}" min="0">
+            </div>
+          </div>
+
+          <div class="edit-section">
+            <h3 class="section-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v6M12 22v-6M4.93 10.93l4.24 4.24M14.83 8.83l4.24 4.24M2 16h6M16 16h6M4.93 19.07l4.24-4.24M14.83 19.07l4.24-4.24"></path>
+              </svg>
+              Consumo de Água
+            </h3>
+            <div class="edit-field">
+              <label for="water-edit">Consumo atual (L):</label>
+              <input type="number" id="water-edit" class="input-field" placeholder="litros" value="{{ rep.get('Agua', '0') }}" min="0">
+            </div>
+          </div>
+
+          <div class="edit-section">
+            <h3 class="section-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+              Consumo de Lixo
+            </h3>
+            <div class="edit-field">
+              <label for="waste-edit">Lixo não reciclável (kg):</label>
+              <input type="number" step="0.05" min="0" id="waste-edit" class="input-field" placeholder="kg" value="{{ rep.get('ResiduosNR', '0') | float }}">
+            </div>
+            <div class="edit-field">
+              <label for="recyclable-waste-edit">Lixo reciclável (kg):</label>
+              <input type="number" step="0.05" min="0" id="recyclable-waste-edit" class="input-field" placeholder="kg" value="{{ rep.get('ResiduosR', '0') | float }}">
+            </div>
+          </div>
+
+          <div class="edit-section">
+            <h3 class="section-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+              Transporte (km)
+            </h3>
+            <div class="transport-edit-container">
+              {% for key, value in rep.get('transporte', {}).items() %}
+                {% set transport_options = ['bicicleta', 'onibus', 'carro', 'moto', 'metro'] %}
+                <div class="transport-entry">
+                  <div class="transport-row">
+                    <select class="input-field transport-select">
+                      {% for option in transport_options %}
+                        {% if option == key %}
+                          <option value="{{ option }}" selected> {{ option.capitalize() }} </option>
+                        {% else %}
+                          <option value="{{ option }}"> {{ option.capitalize() }} </option>
+                        {% endif %}
+                      {% endfor %}
+                    </select>
+                    <input type="number" step="0.1" class="input-field transport-input" placeholder="km" value="{{ value }}" min="0">
+                    <button class="remove-transport-btn">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              {% endfor %}
+              <button class="add-transport-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Adicionar transporte
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <a href="{{ url_for('users.exibe_form_dashboard') }}" class="cancel-button">Cancelar</a>
+          <button class="update-button">Atualizar</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Notificação -->
+    <div class="notification" id="notification">
+      <svg
+        class="notification-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      Dados atualizados com sucesso!
+    </div>
+
+    <script src="{{url_for('static', filename='js/editardados.js')}}"></script>
+  </body>
+</html>
